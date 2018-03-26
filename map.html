@@ -51,7 +51,7 @@ function CSVtoArray(text) {
 }
 
 function initialize() { 
-    locs = CSVtoArray(httpGet('mapdata.txt'));
+    locs = CSVtoArray(httpGet('mapData.txt'));
 
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 5,
