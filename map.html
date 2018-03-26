@@ -3,20 +3,27 @@
     <head>
         <title>Jeff's Journey</title>
 
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
         <meta charset="utf-8">
     
         <style>
             html, body, #map-canvas {
-                height: 600px;
+                height: 100%;
                 margin: 0px;
                 padding: 0px
             }
         </style>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGuRGuzI0nuiEOcF9JtnR6DyBP_Y5pf9c&callback=initMap"type="text/javascript"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGuRGuzI0nuiEOcF9JtnR6DyBP_Y5pf9c&callback=initMap"type="text/javascript"></script>
         <script>
 
 var map, locs;
+
+function httpGet(url) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET",url,false);
+    xmlHttp.send(null);
+    return xmlHttp.responseText;
+}
 
 function CSVtoArray(text) {
     var re_valid = /^\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*(?:,\s*(?:'[^'\\]*(?:\\[\S\s][^'\\]*)*'|"[^"\\]*(?:\\[\S\s][^"\\]*)*"|[^,'"\s\\]*(?:\s+[^,'"\s\\]+)*)\s*)*$/;
@@ -43,9 +50,8 @@ function CSVtoArray(text) {
     return a;
 }
 
-function initialize() {
-	
-    locs = CSVtoArray("mapData.txt");
+function initialize() { 
+    locs = CSVtoArray(httpGet('mapdata.txt'));
 
     map = new google.maps.Map(document.getElementById('map-canvas'), {
         zoom: 5,
